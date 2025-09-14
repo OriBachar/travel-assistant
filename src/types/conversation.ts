@@ -1,4 +1,4 @@
-import { TravelQueryType, ConversationMessage, UserPreferences, ExternalDataPoint } from './shared';
+import { ConversationMessage, UserPreferences, ExternalDataPoint } from './shared';
 
 export interface Conversation {
     _id?: string;
@@ -6,7 +6,7 @@ export interface Conversation {
     userId?: string;
     messages: ConversationMessage[];
     context: ConversationContext;
-    queryType: TravelQueryType;
+    queryType: string;
     externalDataUsed: ExternalDataPoint[];
     createdAt: Date;
     updatedAt: Date;
@@ -15,7 +15,7 @@ export interface Conversation {
 export interface ConversationContext {
     sessionId: string;
     userId?: string;
-    currentQueryType?: TravelQueryType;
+    currentQueryType?: string;
     userPreferences?: UserPreferences;
     conversationHistory?: ConversationMessage[];
     lastInteraction?: Date;
@@ -57,7 +57,7 @@ export interface PromptTemplate {
     template: string;
     variables: string[];
     category: 'system' | 'user' | 'assistant' | 'chain_of_thought' | 'error_recovery';
-    queryTypes: TravelQueryType[];
+    queryTypes: string[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -67,7 +67,7 @@ export interface PromptContext {
     conversationHistory: ConversationMessage[];
     userPreferences?: UserPreferences;
     externalData: ExternalDataPoint[];
-    queryType: TravelQueryType;
+    queryType: string;
     conversationState: ConversationState;
     userPersona?: UserPersona;
 }
@@ -77,7 +77,6 @@ export interface PromptResponse {
     confidence: number;
     reasoning?: string;
     externalDataUsed: string[];
-    followUpQuestions?: string[];
     conversationState: ConversationState;
 }
 

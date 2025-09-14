@@ -4,12 +4,11 @@ import { body, validationResult } from 'express-validator';
 
 const router = Router();
 
-// Validation middleware
 const validateConversationRequest = [
     body('message')
         .isString()
-        .isLength({ min: 1, max: 1000 })
-        .withMessage('Message must be a string between 1 and 1000 characters'),
+        .isLength({ min: 1, max: 1500 })
+        .withMessage('Message must be a string between 1 and 1500 characters'),
     body('sessionId')
         .isString()
         .isLength({ min: 1, max: 100 })
@@ -32,7 +31,6 @@ const validateConversationRequest = [
     }
 ];
 
-// Routes
 router.post('/chat', validateConversationRequest, conversationController.handleConversation.bind(conversationController));
 router.get('/health', conversationController.getHealth.bind(conversationController));
 

@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import { Conversation as IConversation } from '../types/conversation';
-import { ConversationMessage, TravelQueryType, UserPreferences, ExternalDataPoint } from '../types/shared';
+import { ConversationMessage, UserPreferences, ExternalDataPoint } from '../types/shared';
 
 type ConversationWithoutId = Omit<IConversation, '_id'>;
 
@@ -22,8 +22,7 @@ const ConversationMessageSchema = new Schema({
     },
     metadata: {
         queryType: {
-            type: String,
-            enum: Object.values(TravelQueryType)
+            type: String
         },
         externalDataUsed: [String],
         confidence: Number
@@ -60,8 +59,7 @@ const ConversationContextSchema = new Schema({
     },
     userId: String,
     currentQueryType: {
-        type: String,
-        enum: Object.values(TravelQueryType)
+        type: String
     },
     userPreferences: UserPreferencesSchema,
     conversationHistory: [ConversationMessageSchema],
@@ -119,7 +117,6 @@ const ConversationSchema = new Schema({
     context: ConversationContextSchema,
     queryType: {
         type: String,
-        enum: Object.values(TravelQueryType),
         required: true
     },
     externalDataUsed: [ExternalDataPointSchema],
